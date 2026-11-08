@@ -154,6 +154,13 @@ asked, or **drag a video file onto** `video-draft.bat` to start directly.
 ## FAQ
 
 - **Reading is slow**: without a discrete GPU, reads are CPU-only and a few
+- **Task Manager shows a GPU but the UI says "CPU only"**: Ollama
+  accelerates on mainstream ecosystems only — NVIDIA (CUDA) / AMD
+  (ROCm). Some domestic GPUs (e.g. the Moore Threads S3000 shipped
+  with China Mobile cloud PCs) cannot be used by Ollama yet, so
+  reading really is CPU-only; the status line is correct, not a
+  detection error.
+
   minutes per grid is normal. The completion-first fallback automatically
   splits or shrinks a stubborn grid and retries — it will not hang forever.
 - **The merged section disagrees with the per-grid notes**: trust the
