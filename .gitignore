@@ -1,0 +1,13 @@
+# upgrade.sh backups of the pin file
+versions.env.bak-*
+
+# python fallback extractor cache
+__pycache__/
+
+# local packaging artifacts
+*.tar.gz
+*.zip
+
+# editor / OS noise
+.DS_Store
+*.swp

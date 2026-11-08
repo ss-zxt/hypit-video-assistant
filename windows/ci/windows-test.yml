@@ -1,0 +1,54 @@
+name: windows-test
+
+# To enable: copy this file to .github/workflows/windows-test.yml in
+# the repository (it ships under windows/ci/ because the maintainer's
+# current GitHub token lacks the `workflow` scope to push it there).
+#
+# Validates the Windows installer scripts on a real Windows runner:
+# syntax-parse every .ps1, run the model-tier self-test, and run the
+# installer's environment preflight (which also reports the runner's
+# auto-selected model). The full install (multi-GB downloads) is NOT
+# run here; it is verified on a real machine before a release is
+# announced as field-tested.
+
+on:
+  push:
+    paths:
+      - 'windows/**'
+      - '.github/workflows/windows-test.yml'
+  pull_request:
+    paths:
+      - 'windows/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Syntax-check all PowerShell scripts
+        shell: powershell
+        run: |
+          $failed = $false
+          Get-ChildItem -Recurse -Filter *.ps1 windows | ForEach-Object {
+            $tokens = $null; $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile(
+              $_.FullName, [ref]$tokens, [ref]$errors)
+            if ($errors -and $errors.Count -gt 0) {
+              Write-Host "PARSE FAIL: $($_.FullName)"
+              $errors | ForEach-Object { Write-Host "  $($_.Message)" }
+              $failed = $true
+            } else {
+              Write-Host "parse ok: $($_.Name)"
+            }
+          }
+          if ($failed) { exit 1 }
+
+      - name: Model selection self-test
+        shell: powershell
+        run: .\windows\test-select-model.ps1
+
+      - name: Installer preflight (check-only)
+        shell: powershell
+        run: .\windows\install.ps1 -CheckOnly
