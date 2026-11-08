@@ -1,10 +1,19 @@
 # Hypit Video Remake Assistant
 
-**A local video-breakdown assistant for Windows**: paste a TikTok link (or pick a
+**A local video-breakdown assistant for Windows**: paste a video link (or pick a
 local video file) and it fetches the clip, cuts frame grids, reads them one by
 one with a **vision model running on your own machine**, and produces a shot
 breakdown draft, `DRAFT_NOTES.md`. Everything runs locally — your videos are
 never sent to a cloud service.
+
+The fetch engine is yt-dlp (driven via omniget-cli), so this is **not
+TikTok-only**: yt-dlp supports well over a thousand sites — YouTube, Bilibili,
+Instagram, X and more all work by pasting the link. Field-tested notes:
+TikTok is the most reliable; Bilibili works up to 1080p without login;
+YouTube depends on your network and login state, and some videos need
+cookies; Douyin requires cookies imported from a real browser first (no
+one-click import built in yet). Where scripts and the UI say "TikTok", that
+is naming only — the download logic treats every link the same.
 
 [中文版](README.md) · The Linux edition lives in a separate project:
 [hypit-ollama-kit](https://github.com/ss-zxt/hypit-ollama-kit)

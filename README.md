@@ -1,8 +1,14 @@
 # Hypit视频复刻助手
 
-**Windows 本地视频拆解助手**：粘贴一条 TikTok 链接（或选一个本地视频），它自动取片、拆帧，
+**Windows 本地视频拆解助手**：粘贴一条视频链接（或选一个本地视频），它自动取片、拆帧，
 用**你自己电脑上的本地视觉模型**逐帧读图，生成一份分镜拆解初稿 `DRAFT_NOTES.md`。
 全程在本机运行，不把视频发给任何云端服务。
+
+取片引擎是 yt-dlp（经 omniget-cli 调用），**不止 TikTok**：它支持上千个站点，
+YouTube、Bilibili、Instagram、X 等的链接都能直接粘。各站点实测情况：
+TikTok 最稳；Bilibili 免登录可下到 1080p；YouTube 视网络与登录状态而定，
+部分视频需要 cookies；抖音需要先从浏览器导入 cookies 才能下（暂未内置一键导入）。
+脚本和界面里出现的"TikTok"只是名字和文案，下载逻辑对所有链接一视同仁。
 
 [English version](README_EN.md) · Linux 版在另一个项目：
 [hypit-ollama-kit](https://github.com/ss-zxt/hypit-ollama-kit)
