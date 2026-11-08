@@ -15,6 +15,13 @@ cookies; Douyin requires cookies imported from a real browser first (no
 one-click import built in yet). Where scripts and the UI say "TikTok", that
 is naming only — the download logic treats every link the same.
 
+> **Free edition**: this assistant is the **free** version. It only does
+> the "break down into prompts" step — it produces the breakdown draft
+> as an MD file and **does not generate video itself**. Upload the MD
+> file to another AI agent (e.g. Muse) to produce the video; for
+> direct video generation, subscribe to Hypit's related services
+> separately.
+
 [中文版](README.md) · The Linux edition lives in a separate project:
 [hypit-ollama-kit](https://github.com/ss-zxt/hypit-ollama-kit)
 

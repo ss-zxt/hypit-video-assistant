@@ -10,6 +10,11 @@ TikTok 最稳；Bilibili 免登录可下到 1080p；YouTube 视网络与登录�
 部分视频需要 cookies；抖音需要先从浏览器导入 cookies 才能下（暂未内置一键导入）。
 脚本和界面里出现的"TikTok"只是名字和文案，下载逻辑对所有链接一视同仁。
 
+> **免费版说明**：本助手是**免费版**，只能做到"拆解出提示词"这一步——产出
+> 拆解初稿 MD 文件，**本身不生成视频**。把生成的 MD 文件上传给其他智能体
+> （如 Muse），由对方生成视频；如果想直接生成视频，需要另行订阅
+> Hypit 的相关服务。
+
 [English version](README_EN.md) · Linux 版在另一个项目：
 [hypit-ollama-kit](https://github.com/ss-zxt/hypit-ollama-kit)
 
