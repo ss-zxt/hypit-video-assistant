@@ -104,7 +104,7 @@ skip the pull.
 2. **After that**: just double-click the root shortcut. Startup shows **no
    console window at all**; the taskbar shows only the app window with its
    own icon.
-3. Paste a TikTok link into the input box (or use "选文件..." for a local
+3. Paste a video link into the input box (or use "选文件..." for a local
    video), click "**开始生成初稿**" and watch the live log. You can stop
    midway — notes for grids already read are kept in the project folder.
 4. When a run finishes, three buttons light up:

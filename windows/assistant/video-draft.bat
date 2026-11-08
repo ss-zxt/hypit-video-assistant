@@ -1,5 +1,5 @@
 @echo off
-rem Local assistant launcher: give it a TikTok URL or a video file
+rem Local assistant launcher: give it a video URL or a video file
 rem (drag a video file onto this .bat, or double-click and let the
 rem PowerShell script ask for the URL - the prompt lives in the .ps1
 rem on purpose: cmd.exe misparses batch files containing non-ASCII

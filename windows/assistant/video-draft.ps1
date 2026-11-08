@@ -1,6 +1,6 @@
 ﻿# video-draft.ps1 - the kit's local "assistant" pipeline on Windows.
 #
-# Give it a TikTok URL or a local video file. It will:
+# Give it a video URL (TikTok / YouTube / Bilibili / ...) or a local video file. It will:
 #   1. download the video (URLs only, via tiktok\download-tiktok.ps1)
 #   2. archive it and cut 0.5s frame grids (tiktok\prepare-reference.ps1)
 #   3. feed every grid image to the local vision model in Ollama and
@@ -15,7 +15,7 @@
 # kit's standing rule.
 #
 # Usage:
-#   powershell -ExecutionPolicy Bypass -File .\video-draft.ps1 "<TikTok URL>"
+#   powershell -ExecutionPolicy Bypass -File .\video-draft.ps1 "<video URL>"
 #   powershell -ExecutionPolicy Bypass -File .\video-draft.ps1 "C:\path\video.mp4" [-ProjectName name] [-Model qwen3-vl:4b-instruct]
 
 [CmdletBinding()]
@@ -45,7 +45,7 @@ try {
     # the prompt lives here, in the UTF-8-BOM script).
     try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
     if (-not $Source) {
-        Write-Host '粘贴 TikTok 链接, 或输入本地视频文件的路径 (也可以把视频文件拖到 video-draft.bat 上):'
+        Write-Host '粘贴视频链接 (TikTok / YouTube / Bilibili 等), 或输入本地视频文件的路径 (也可以把视频文件拖到 video-draft.bat 上):'
         $Source = Read-Host '>'
         if (-not $Source) { Die '没有输入任何内容, 退出。' }
         $Source = $Source.Trim().Trim('"')

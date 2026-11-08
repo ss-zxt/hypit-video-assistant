@@ -1,5 +1,5 @@
 ﻿# video-draft-gui.ps1 - a small Windows Forms front end for the local
-# assistant (video-draft.ps1). Paste a TikTok URL (or pick a local
+# assistant (video-draft.ps1). Paste a video URL (or pick a local
 # video file), click Start, watch the pipeline log live, then open the
 # finished DRAFT_NOTES.md from the window.
 #
@@ -104,7 +104,7 @@ try {
 } catch { }
 
 $lbl = New-Object System.Windows.Forms.Label
-$lbl.Text = 'TikTok 链接，或本地视频文件：'
+$lbl.Text = '视频链接（TikTok / YouTube / Bilibili 等），或本地视频文件：'
 $lbl.Location = New-Object System.Drawing.Point(12, 14)
 $lbl.AutoSize = $true
 $form.Controls.Add($lbl)
@@ -265,7 +265,7 @@ $btnBrowse.Add_Click({
 $btnStart.Add_Click({
     $src = $txtSource.Text.Trim()
     if (-not $src) {
-        [System.Windows.Forms.MessageBox]::Show('先粘贴一个 TikTok 链接，或选一个本地视频文件。', '提示') | Out-Null
+        [System.Windows.Forms.MessageBox]::Show('先粘贴一个视频链接，或选一个本地视频文件。', '提示') | Out-Null
         return
     }
     $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'

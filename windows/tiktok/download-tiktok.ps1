@@ -1,10 +1,10 @@
-﻿# download-tiktok.ps1 - one command downloads one TikTok video on
+﻿# download-tiktok.ps1 - one command downloads one video (any yt-dlp-supported site) on
 # Windows: info first (title / formats), then the download via
 # omniget-cli, then an ffprobe verification of the landed file.
 # The Windows counterpart of tiktok/download-tiktok.sh.
 #
 # Usage:
-#   powershell -ExecutionPolicy Bypass -File .\download-tiktok.ps1 "<TikTok URL>" [-OutputDir <dir>]
+#   powershell -ExecutionPolicy Bypass -File .\download-tiktok.ps1 "<video URL>" [-OutputDir <dir>]
 #
 # Notes:
 #   - Short links (vt.tiktok.com) resolve directly.
@@ -70,7 +70,7 @@ try {
     if ((-not $ok) -or (-not $file) -or ($beforeTime -and $file.LastWriteTime -le $beforeTime)) {
         if (Test-Path $ytdlp) {
             Write-Warn 'omniget-cli 没下到文件, 改用内置的 yt-dlp.exe 直接下载 ...'
-            & $ytdlp -o (Join-Path $OutputDir 'tiktok_%(uploader_id)s_%(id)s.%(ext)s') $Url | Out-Host
+            & $ytdlp -o (Join-Path $OutputDir 'video_%(uploader_id)s_%(id)s.%(ext)s') $Url | Out-Host
             if ($LASTEXITCODE -ne 0) { Die 'omniget-cli 和 yt-dlp.exe 两个引擎都下载失败' }
             $file = Find-NewestVideo
         } else {
