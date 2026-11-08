@@ -73,8 +73,9 @@ TikTok 最稳；Bilibili 免登录可下到 1080p；YouTube 视网络与登录�
 注：无独显的大内存机器跑大模型是纯 CPU 推理，能跑但慢，属正常现象。
 - **云电脑 / 虚拟机（无显卡、不能开虚拟化）可以装**：全套都是原生
   Windows 程序（PowerShell + 本地 exe），不依赖 WSL / Docker /
-  Hyper-V，不用管理员权限（装在用户目录）。这类机器唯一要先手动
-  装的是 Node.js ≥ 22.15（官网 LTS 版）。16 GB 内存会自动选
+  Hyper-V，不用管理员权限（装在用户目录）。前置只有 Node.js ≥ 22.15
+  和 Git（装 Hypit 技能包要靠 git 拉仓库）：有 winget 的系统安装器会
+  自动补装，缺 winget 时（如 LTSC）先手动装好这两样。16 GB 内存会自动选
   qwen3-vl:8b-instruct（约 6 GB，装得下），读图更准；纯 CPU 跑会慢，
   云电脑挂着慢慢跑一般可接受，实在嫌慢可加 `-Model qwen3-vl:4b-instruct` 换小档
 

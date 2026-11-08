@@ -76,6 +76,25 @@ try {
     }
     Write-Info "node $nodeVer, npm $(& npm --version)"
 
+    # Git is a hard requirement too: the skills CLI installs the Hypit
+    # skill by `git clone`-ing its repo. Dev machines usually have Git;
+    # fresh cloud PCs do not (field-hit 2026-11-08 on a cloud PC:
+    # "spawn git ENOENT" at the skill step). Same treatment as Node:
+    # winget auto-install when possible, clear Die otherwise.
+    $gitCmd = Get-Command 'git.exe' -ErrorAction SilentlyContinue
+    if (-not $gitCmd -and -not $CheckOnly) {
+        $winget = Get-Command 'winget.exe' -ErrorAction SilentlyContinue
+        if ($winget) {
+            Write-Info 'Git missing - installing via winget ...'
+            & $winget.Source install -e --id Git.Git --accept-package-agreements --accept-source-agreements | Out-Host
+            $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' +
+                        [Environment]::GetEnvironmentVariable('Path', 'User')
+            $gitCmd = Get-Command 'git.exe' -ErrorAction SilentlyContinue
+        }
+    }
+    if (-not $gitCmd) { Die 'Git is required (the skill installer clones with git). Install it from https://git-scm.com and re-run.' }
+    Write-Info "git $(& $gitCmd.Source --version)"
+
     # Model choice: explicit -Model > recorded choice (stable re-runs) > auto.
     $recorded = Get-RecordedModel
     if ($Model) {

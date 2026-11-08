@@ -90,9 +90,11 @@ CPU only — it works, but slowly. That is expected.
 - **Cloud PCs / VMs (no GPU, no nested virtualization) work**: the
   whole toolchain is native Windows programs (PowerShell + local
   executables) — no WSL / Docker / Hyper-V anywhere, and no admin
-  rights needed (everything installs into the user profile). The one
-  manual prerequisite on such machines is Node.js ≥ 22.15 (the LTS
-  build from nodejs.org). With 16 GB RAM the installer
+  rights needed (everything installs into the user profile). The only
+  prerequisites are Node.js ≥ 22.15 and Git (the skill installer
+  clones its repo with git): the installer auto-installs both via
+  winget where winget exists; on machines without it (e.g. LTSC),
+  install both manually first. With 16 GB RAM the installer
   auto-selects qwen3-vl:8b-instruct (~6 GB - it fits) and reads more
   accurately; on CPU it is slow, which is usually acceptable on a
   cloud PC left running - add `-Model qwen3-vl:4b-instruct` only if
