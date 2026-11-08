@@ -76,10 +76,14 @@ Model tier is selected automatically from your hardware:
 
 | Condition | Model |
 |---|---|
-| RAM ≥ 32 GB or VRAM ≥ 16 GB | qwen3-vl 14B class |
-| RAM ≥ 16 GB or VRAM ≥ 8 GB | qwen3-vl 8B class |
-| RAM ≥ 8 GB | qwen3-vl 4B (instruct) |
-| Below that | small fallback model (limited reading quality) |
+| RAM ≥ 16 GB or VRAM ≥ 8 GB | qwen3-vl:8b-instruct |
+| RAM ≥ 8 GB | qwen3-vl:4b-instruct |
+| Below that | qwen3-vl:2b-instruct (limited reading quality) |
+
+Machines with ≥ 32 GB RAM use 8b-instruct too: qwen3-vl has no 14B
+tier, and 8b-instruct is the practical accuracy/size sweet spot. For
+something larger, pick it yourself with the installer's `-Model`
+(e.g. qwen3-vl:32b).
 
 Note: on a high-RAM machine without a discrete GPU, a large model runs on
 CPU only — it works, but slowly. That is expected.
@@ -88,9 +92,11 @@ CPU only — it works, but slowly. That is expected.
   executables) — no WSL / Docker / Hyper-V anywhere, and no admin
   rights needed (everything installs into the user profile). The one
   manual prerequisite on such machines is Node.js ≥ 22.15 (the LTS
-  build from nodejs.org). With 16 GB RAM the installer picks an 8B
-  class model; CPU-only reading is slow, so prefer the 4B model:
-  `powershell -ExecutionPolicy Bypass -File .\windows\install.ps1 -Model qwen3-vl:4b-instruct`
+  build from nodejs.org). With 16 GB RAM the installer
+  auto-selects qwen3-vl:8b-instruct (~6 GB - it fits) and reads more
+  accurately; on CPU it is slow, which is usually acceptable on a
+  cloud PC left running - add `-Model qwen3-vl:4b-instruct` only if
+  you really want the smaller, faster tier
 
 
 ## Installation

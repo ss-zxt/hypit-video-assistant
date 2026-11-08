@@ -62,18 +62,21 @@ TikTok 最稳；Bilibili 免登录可下到 1080p；YouTube 视网络与登录�
 
 | 条件 | 模型 |
 |---|---|
-| 内存 ≥ 32 GB 或显存 ≥ 16 GB | qwen3-vl:14b 级 |
-| 内存 ≥ 16 GB 或显存 ≥ 8 GB | qwen3-vl:8b 级 |
-| 内存 ≥ 8 GB | qwen3-vl:4b 级（instruct） |
-| 更低 | 回落小模型（读图质量有限） |
+| 内存 ≥ 16 GB 或显存 ≥ 8 GB | qwen3-vl:8b-instruct |
+| 内存 ≥ 8 GB | qwen3-vl:4b-instruct |
+| 更低 | qwen3-vl:2b-instruct（读图质量有限） |
+
+内存 ≥ 32 GB 的机器同样用 8b-instruct：qwen3-vl 没有 14b 这一档，
+8b-instruct 是兼顾准确与体积的实用上限；想要更大的可用安装参数
+`-Model` 自选（如 qwen3-vl:32b）。
 
 注：无独显的大内存机器跑大模型是纯 CPU 推理，能跑但慢，属正常现象。
 - **云电脑 / 虚拟机（无显卡、不能开虚拟化）可以装**：全套都是原生
   Windows 程序（PowerShell + 本地 exe），不依赖 WSL / Docker /
   Hyper-V，不用管理员权限（装在用户目录）。这类机器唯一要先手动
-  装的是 Node.js ≥ 22.15（官网 LTS 版）。16 GB 内存会自动选 8B 级
-  模型，纯 CPU 读图偏慢，建议安装时指定 4B：
-  `powershell -ExecutionPolicy Bypass -File .\windows\install.ps1 -Model qwen3-vl:4b-instruct`
+  装的是 Node.js ≥ 22.15（官网 LTS 版）。16 GB 内存会自动选
+  qwen3-vl:8b-instruct（约 6 GB，装得下），读图更准；纯 CPU 跑会慢，
+  云电脑挂着慢慢跑一般可接受，实在嫌慢可加 `-Model qwen3-vl:4b-instruct` 换小档
 
 
 ## 安装步骤

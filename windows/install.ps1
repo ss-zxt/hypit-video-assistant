@@ -85,12 +85,26 @@ try {
     } else {
         $selectedModel = Select-QwenModel -RamGB $ramGB -VramGB $vramGB
         $modelWhy = 'auto-selected for this machine'
+        # This repo is the video assistant: the pipeline READS frame
+        # images, so the auto-selected size tier must resolve to the
+        # matching VISION model (qwen3-vl *-instruct). The size
+        # selector speaks text-model tags (inherited from the Linux
+        # kit); recording a text model here would leave image reading
+        # broken on a fresh install - the first field PC only dodged
+        # this because it already had a VL model installed. There is
+        # no qwen3-vl:14b, so the top tier caps at 8b-instruct;
+        # -Model overrides everything.
+        $vlMap = @{ 'qwen3:14b' = 'qwen3-vl:8b-instruct'; 'qwen3:8b' = 'qwen3-vl:8b-instruct'; 'qwen3:4b' = 'qwen3-vl:4b-instruct'; 'qwen3:1.7b' = 'qwen3-vl:2b-instruct' }
+        if ($vlMap.ContainsKey($selectedModel)) {
+            Write-Info "assistant needs a vision model: $selectedModel tier -> $($vlMap[$selectedModel])"
+            $selectedModel = $vlMap[$selectedModel]
+        }
     }
     Write-Info "model: $selectedModel ($modelWhy)"
 
     $drive = Split-Path $env:LOCALAPPDATA -Qualifier
     $freeGB = [math]::Round((Get-PSDrive ($drive -replace ':', '')).Free / 1GB, 1)
-    $modelGB = @{ 'qwen3:1.7b' = 1.4; 'qwen3:4b' = 2.5; 'qwen3:8b' = 5.2; 'qwen3:14b' = 9.3 }
+    $modelGB = @{ 'qwen3:1.7b' = 1.4; 'qwen3:4b' = 2.5; 'qwen3:8b' = 5.2; 'qwen3:14b' = 9.3; 'qwen3-vl:2b-instruct' = 1.9; 'qwen3-vl:4b-instruct' = 3.1; 'qwen3-vl:8b-instruct' = 6.1 }
     $needGB = 6 + $(if ($modelGB.ContainsKey($selectedModel)) { $modelGB[$selectedModel] } else { 5 })
     Write-Info "free disk on $drive $freeGB GB (estimated need ~$needGB GB)"
     if ($freeGB -lt $needGB) { Write-Warn 'low disk space for the full stack + model' }
