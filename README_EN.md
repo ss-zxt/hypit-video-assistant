@@ -83,6 +83,15 @@ Model tier is selected automatically from your hardware:
 
 Note: on a high-RAM machine without a discrete GPU, a large model runs on
 CPU only — it works, but slowly. That is expected.
+- **Cloud PCs / VMs (no GPU, no nested virtualization) work**: the
+  whole toolchain is native Windows programs (PowerShell + local
+  executables) — no WSL / Docker / Hyper-V anywhere, and no admin
+  rights needed (everything installs into the user profile). The one
+  manual prerequisite on such machines is Node.js ≥ 22.15 (the LTS
+  build from nodejs.org). With 16 GB RAM the installer picks an 8B
+  class model; CPU-only reading is slow, so prefer the 4B model:
+  `powershell -ExecutionPolicy Bypass -File .\windows\install.ps1 -Model qwen3-vl:4b-instruct`
+
 
 ## Installation
 

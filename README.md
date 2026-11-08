@@ -68,6 +68,13 @@ TikTok 最稳；Bilibili 免登录可下到 1080p；YouTube 视网络与登录�
 | 更低 | 回落小模型（读图质量有限） |
 
 注：无独显的大内存机器跑大模型是纯 CPU 推理，能跑但慢，属正常现象。
+- **云电脑 / 虚拟机（无显卡、不能开虚拟化）可以装**：全套都是原生
+  Windows 程序（PowerShell + 本地 exe），不依赖 WSL / Docker /
+  Hyper-V，不用管理员权限（装在用户目录）。这类机器唯一要先手动
+  装的是 Node.js ≥ 22.15（官网 LTS 版）。16 GB 内存会自动选 8B 级
+  模型，纯 CPU 读图偏慢，建议安装时指定 4B：
+  `powershell -ExecutionPolicy Bypass -File .\windows\install.ps1 -Model qwen3-vl:4b-instruct`
+
 
 ## 安装步骤
 
