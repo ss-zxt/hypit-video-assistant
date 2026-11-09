@@ -1,0 +1,6 @@
+{
+  "name": "hypit-kit-smoke",
+  "private": true,
+  "type": "module",
+  "hypit": { "project": true }
+}
