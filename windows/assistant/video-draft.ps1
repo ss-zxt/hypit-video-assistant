@@ -76,12 +76,17 @@ try {
         if (Test-Path $dlDir) {
             Get-ChildItem $dlDir -File | ForEach-Object { $before[$_.FullName] = $_.LastWriteTimeUtc }
         }
-        $startUtc = [DateTime]::UtcNow
         & (Join-Path $WindowsDir 'tiktok\download-tiktok.ps1') $Source | Out-Host
+        # A file counts as the result when its name is new or its mtime
+        # moved during the child run. Do NOT also demand a recent mtime:
+        # yt-dlp backdates the downloaded file's mtime to the video's
+        # upload time, so a perfectly good fresh download can carry an
+        # mtime days in the past (field bug 2026-11-09 on a cloud PC:
+        # download verified OK, then this check claimed no new file).
         $fresh = @(Get-ChildItem $dlDir -File -ErrorAction SilentlyContinue | Where-Object {
-            (-not $before.ContainsKey($_.FullName)) -or ($_.LastWriteTimeUtc -gt $before[$_.FullName])
-        } | Where-Object { $_.LastWriteTimeUtc -ge $startUtc.AddMinutes(-2) } |
-            Sort-Object LastWriteTimeUtc -Descending)
+            ((-not $before.ContainsKey($_.FullName)) -or ($_.LastWriteTimeUtc -gt $before[$_.FullName])) -and
+            ($_.Extension -in '.mp4', '.mov', '.mkv', '.webm', '.avi')
+        } | Sort-Object LastWriteTimeUtc -Descending)
         if ($fresh.Count -gt 0) { $videoFile = $fresh[0].FullName }
         if (-not $videoFile -or -not (Test-Path $videoFile)) { Die "下载没有在 $dlDir 产生新文件" }
         Write-Info "已下载文件: $videoFile"
