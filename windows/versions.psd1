@@ -17,7 +17,7 @@
     FfmpegVersion       = '8.1.2'
     FfmpegAsset         = 'ffmpeg-8.1.2-essentials_build.zip'
     FfmpegAssetSha256   = 'db580001caa24ac104c8cb856cd113a87b0a443f7bdf47d8c12b1d740584a2ec'
-    FfmpegUrl           = 'https://www.gyan.dev/ffmpeg/builds/packages/ffmpeg-8.1.2-essentials_build.zip'
+    FfmpegUrl           = 'https://github.com/GyanD/codexffmpeg/releases/download/8.1.2/ffmpeg-8.1.2-essentials_build.zip'
 
     OmnigetVersion      = '0.14.0'
     OmnigetAsset        = 'omniget-cli-0.14.0-x86_64-pc-windows-msvc.zip'
