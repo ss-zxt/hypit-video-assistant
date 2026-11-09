@@ -82,7 +82,7 @@ function Download-File {
     # HTTPS_PROXY explicitly when one is set (value is never printed).
     param([string]$Url, [string]$OutFile)
     $curl = Get-Command 'curl.exe' -ErrorAction SilentlyContinue
-    $args = @('-fL', '--retry', '3', '--retry-delay', '2', '-C', '-', '-o', $OutFile)
+    $args = @('-fL', '--retry', '6', '--retry-delay', '3', '-C', '-', '-o', $OutFile)
     $proxy = $env:HTTPS_PROXY
     if (-not $proxy) { $proxy = $env:https_proxy }
     if ($proxy) { $args += @('--proxy', $proxy) }
